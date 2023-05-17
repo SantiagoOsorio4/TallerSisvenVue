@@ -4,7 +4,14 @@ import HomeView from '../views/HomeView.vue'
 import Clientes from '../views/Clientes';
 import categories from '../views/Categories';
 import PayMode from '../views/PayMode';
+import Products from '../views/Products';
+
 const routes = [
+  {
+    path: '/Products',
+    name: 'Products',
+    component: Products
+  },
   {
     path: '/PayMode',
     name: 'PayMode',
