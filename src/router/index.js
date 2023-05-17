@@ -1,28 +1,47 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-import HomeView from '../views/HomeView.vue'
+
 
 //clientes
+
 import EditarCustomer from '../components/clientes/EditarCustomer.vue';
-import NewComuna from '../components/clientes/NewCustomer.vue';
+import NewCustomer from '../components/clientes/NewCustomer.vue';
 import Clientes from '../views/Clientes';
 
-//categories
-import categories from '../views/Categories';
+//PayMode
+import EditarPayMode from '../components/PayMode/EditarPayMode.vue';
+import NewPayMode from '../components/PayMode/NewPayMode.vue';
 import PayMode from '../views/PayMode';
-import Products from '../views/Products';
 
+
+//
+import categories from '../views/Categories';
+import Products from '../views/Products';
+import HomeView from '../views/HomeView.vue'
 const routes = [
   {
     path: '/Products',
     name: 'Products',
     component: Products
   },
-  //
+  //PayMode
   {
     path: '/PayMode',
     name: 'PayMode',
     component: PayMode
   },
+  {
+    path: '/editar-PayMode/:id',
+    name: 'EditarPayMode>',
+    component: EditarPayMode
+  },
+  {
+    path: '/add-PayMode/',
+    name: 'NewPayMode',
+    component: NewPayMode
+  },
+
+
+
   //
   {
     path: '/categories',
@@ -36,17 +55,17 @@ const routes = [
     component: Clientes
   },
   {
-    path: '/editar-comuna/:id',
+    path: '/editar-customer/:id',
     name: 'EditarCustomer',
-    component: Clientes
+    component: EditarCustomer
   },
   {
     path: '/add-customer/',
     name: 'NewCustomer',
-    component: Clientes
+    component: NewCustomer
   },
 
-  //
+  //home
   {
     path: '/',
     name: 'home',

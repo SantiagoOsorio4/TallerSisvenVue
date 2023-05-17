@@ -100,7 +100,7 @@
 
             async saveCustomer(){
                 this.clientes.document_number = this.muni_codi
-                const res = await axios.put(`http://127.0.0.1:8000/api/clientes/${this.clientes.document_number}`,this.clientes)
+                const res = await axios.post(`http://127.0.0.1:8000/api/clientes/`,this.clientes)
                 console.log(res);
 
                 if (res.status == 200){
@@ -117,7 +117,7 @@
         },
         mounted(){
             axios.get(`http://127.0.0.1:8000/api/clientes/`)
-            .then(response =>(this.clientes = response.data.clientes))
+            .then(response =>{this.clientes = response.data.clientes})
         },
     }
 </script>
