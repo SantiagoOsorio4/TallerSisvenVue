@@ -1,19 +1,18 @@
 <template>
     <div class="container text-start">
-        <h1 class="text-primary fw-bold">Editar</h1>
+        <h1 class="text-primary fw-bold">New</h1>
         <div class="card">
             <div class="card-header fw-bold">
-                Customer
+                Clientes
             </div>
             <div class="card-body">
-                <form @submit.prevent="updateCustomer">
+                <form @submit.prevent="saveClientes">
                 
                     <div class="row mb-3">
                         <label for="document_number" class="form-label">codigo</label>
-
                         <div class="input-group">
                             <div class="input-group-text"><font-awesome-icon icon="tag"/></div>
-                            <input type="text" class="form-control" id="document_number" placeholder="Number document" disabled v-model='clientes.document_number'>
+                            <input type="text" class="form-control" id="document_number" placeholder="Number document" v-model='clientes.document_number'>
                         </div>
                     </div>
 
@@ -28,7 +27,7 @@
                     <div class="row mb-3">
                         <label for="last_name" class="form-label">last name: </label>
                         <div class="input-group">
-                            <div class="input-group-text"><font-awesome-icon icon="Bank"/></div>
+                            <div class="input-group-text"><font-awesome-icon icon="building"/></div>
                             <input type="text" class="form-control" id="last_name" placeholder="Apellido customer" v-model='clientes.last_name'>
                         </div>
                     </div>
@@ -64,14 +63,13 @@
                             <input type="text" class="form-control" id="email" placeholder="email customer" v-model='clientes.email'>
                         </div>
                     </div>
-                    <button class="btn btn-primary" type="submit">Actualizar</button>
-                    <button class="btn btn-primary" type="submit">Actualizar</button>
+                    <button class="btn btn-primary" type="submit">Save</button>
+                    <button class="btn btn-secondary mx-2" @click="cancelar">Cancel</button>
                 </form>
             </div>
         </div>
-
-        </div>
-        </template>
+     </div>
+</template>
 
     <script>
     import axios from 'axios'
@@ -79,7 +77,7 @@
 
     export default{
 
-        name: 'EditarCustomer',
+        name: 'EditarClientes',
         data(){
             return{
                 clientes:{
@@ -97,18 +95,20 @@
         methods:
         {
             cancelar(){
-                this.$router.push({name: 'clientes'})
+                this.$router.push({name: 'Clientes'})
             },
 
-            async updateCustomer(){
-                const res = await axios.put(`http://127.0.0.1:8000/api/clientes/${this.clientes.document_number}`,this.clientes)
+            async saveClientes(){
+                this.clientes.id = this.id
+                const res = await axios.post(`http://127.0.0.1:8000/api/clientes`,this.clientes)
+                console.log(res);
 
                 if (res.status == 200){
                     this.$router.push({name: 'Clientes'})
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
-                        title: 'Customer has been updated',
+                        title: 'Clientes has been saved',
                         showConfirmButton: false,
                         timer: 2000
                     })
@@ -116,9 +116,8 @@
             }
         },
         mounted(){
-            this.clientes.document_number = this.$route.params.id;
-            axios.get(`http://127.0.0.1:8000/api/clientes/${this.clientes.document_number}`)
-            .then(response =>(this.clientes = response.data.clientes))
+            axios.get(`http://127.0.0.1:8000/api/clientes/`)
+            .then(response =>{this.clientes = response.data.clientes})
         },
     }
 </script>

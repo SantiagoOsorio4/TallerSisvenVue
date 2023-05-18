@@ -8,12 +8,18 @@
             <div class="card-body">
                 <form @submit.prevent="saveProducts">
                     <div class="row mb-3">
-
-                        <label for="name" class="form-label">Name</label>
-
+                        <label for="id" class="form-label">id</label>
                         <div class="input-group">
                             <div class="input-group-text"> <font-awesome-icon icon="tag" /> </div>
-                            <input type="text" class="form-control" id="name" placeholder="name" disabled v-model='Products.name'>
+                            <input type="text" class="form-control" id="id" placeholder="id" disabled v-model='Products.id'>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <div class="input-group">
+                            <div class="input-group-text"> <font-awesome-icon icon="tag" /> </div>
+                            <input type="text" class="form-control" id="name" placeholder="name" v-model='Products.name'>
                         </div>
                     </div>
                     
@@ -42,7 +48,7 @@
                     </div>
 
                     <button class="btn btn-primary" type="submit">Save</button>
-                    <button class="btn btn-secondary mx-2" @click="cancel">Cancelar</button>
+                    <button class="btn btn-secondary mx-2" @click="cancelar">Cancelar</button>
                 </form>
             </div>
         </div>
@@ -55,12 +61,14 @@
 
     export default{
 
-        name: 'EditarProducts',
+        name: 'NewProducts',
         data(){
             return{
                 Products:{
                     name:'',
-                    observation: ''
+                    price: 0,
+                    stock: 0,
+                    category_id: 0
                 },
             }
         },
@@ -68,16 +76,16 @@
         methods:
         {
             cancelar(){
-                this.$router.push({name: 'PayMode'})
+                this.$router.push({name: 'Products'})
             },
 
             async SavePayMode(){
-                this.PayMode.name = this.name
-                const res = await axios.post(`http://127.0.0.1:8000/api/PayMode/`, this.PayMode)
+                this.Products.id = this.id
+                const res = await axios.post(`http://127.0.0.1:8000/api/Products/`, this.Products)
                 console.log(res);
 
                 if (res.status == 200){
-                    this.$router.push({name: 'PayMode'})
+                    this.$router.push({name: 'Products'})
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
@@ -89,9 +97,9 @@
             }
         },
         mounted(){
-            axios.get(`http://127.0.0.1:8000/api/PayMode/`)
+            axios.get(`http://127.0.0.1:8000/api/Products/`)
             .then(response => {
-                this.PayMode = response.data.PayMode
+                this.Products = response.data.Products
             })
         },
     }

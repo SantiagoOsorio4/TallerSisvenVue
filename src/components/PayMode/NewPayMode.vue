@@ -13,7 +13,7 @@
 
                         <div class="input-group">
                             <div class="input-group-text"> <font-awesome-icon icon="tag" /> </div>
-                            <input type="text" class="form-control" id="name" placeholder="name" disabled v-model='PayMode.name'>
+                            <input type="text" class="form-control" id="name" placeholder="name" v-model='PayMode.name'>
                         </div>
                     </div>
 
@@ -26,7 +26,7 @@
                     </div>
 
                     <button class="btn btn-primary" type="submit">Save</button>
-                    <button class="btn btn-secondary mx-2" @click="cancel">Cancelar</button>
+                    <button class="btn btn-secondary mx-2" @click="cancelar">Cancelar</button>
                 </form>
             </div>
         </div>
@@ -55,8 +55,8 @@
                 this.$router.push({name: 'PayMode'})
             },
 
-            async SavePayMode(){
-                this.PayMode.name = this.name
+            async savePayMode(){
+                this.PayMode.id = this.id
                 const res = await axios.post(`http://127.0.0.1:8000/api/PayMode/`, this.PayMode)
                 console.log(res);
 

@@ -1,12 +1,11 @@
 <template>
-  <div>
+  <div id="nav">
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link> |
     <router-link to="/Clientes">Customers</router-link> |
-    <router-link to="/Categories">Categories</router-link> |
     <router-link to="/PayMode">PayMode</router-link> |
-    <router-link to="/Products">Products</router-link> 
-
+    <router-link to="/Products">Products</router-link> |
+    <router-link to="/Categories">Categories</router-link> 
 </div>
   <router-view/>
 </template>
@@ -20,16 +19,16 @@
   color: #2c3e50;
 }
 
-nav {
+#nav {
   padding: 30px;
 }
 
-nav a {
+#nav a {
   font-weight: bold;
   color: #2c3e50;
 }
 
-nav a.router-link-exact-active {
+#nav a.router-link-exact-active {
   color: #42b983;
 }
 </style>

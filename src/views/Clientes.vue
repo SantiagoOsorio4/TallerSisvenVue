@@ -1,7 +1,7 @@
 <template>
     <div class="container">
-        <h1>Listado Customers |
-            <button @click="newCustomer()" 
+        <h1>Listado Clientes |
+            <button @click="newClientes()" 
             class="btn btn-success mx-2">
             <font-awesome-icon icon="plus"/>
             </button>
@@ -22,20 +22,20 @@
             <tbody>
 
                 <tr v-for="(clientes,index) in clientes" :key="index">
-                <th scope="=row">{{index+1}}</th>
+                <td>{{ clientes.id }}</td>  
                 <td>{{ clientes.document_number }}</td>    
-                <td>{{ clientes.firts_name }}</td>     
+                <td>{{ clientes.first_name }}</td>     
                 <td>{{ clientes.last_name }}</td>     
                 <td>{{ clientes.address  }}</td>     
                 <td>{{ clientes.birthday }}</td>     
                 <td>{{ clientes.phone_number }}</td>   
                 <td>{{ clientes.email }}</td>  
                 <td>
-                    <button @click="deleteCustomer(clientes.document_number)"
+                    <button @click="deleteClientes(clientes.id)"
                     class="btn btn-danger mx-2">
                     <font-awesome-icon icon="trash" />
                     </button>
-                    <button @click="editCustomer(clientes.document_number)"
+                    <button @click="editClientes(clientes.id)"
                     class="btn btn-warning mx-2">
                     <font-awesome-icon icon="pencil" />
                     </button>
@@ -52,7 +52,7 @@
 
     export default{
 
-        name: 'Cliente',
+        name: 'Clientes',
         data(){
             return{
                 clientes: []
@@ -61,15 +61,15 @@
 
         methods:
         {
-            deleteCustomer(codigo){
+            deleteClientes(id){
                 Swal.fire
                 ({
-                    title: `Do you want to delete the Customer with id ${codigo}?`,
+                    title: `Do you want to delete the Customer with id ${id}?`,
                     showCancelButton: true,
                     confirmButtonText: 'Delete',   
                 }).then((result) =>{
                     if (result.isConfirmed){
-                        axios.delete(`http://127.0.0.1:8000/api/clientes/${codigo}`)
+                        axios.delete(`http://127.0.0.1:8000/api/clientes/${id}`)
                         .then(response =>{
                             if (response.data.success){
                                 Swal.fire('Deleted!!', '' ,'success')
@@ -78,14 +78,15 @@
                         })
                     }
                 })
-            }
+            },
+            editClientes(id){
+            this.$router.push({name:'EditarClientes', params: {id: `${id}`}})
         },
-        editCustomer(id){
-            this.$router.push({name: 'EditarCustomer', params: {id: `${id}`}})
+        newClientes(){
+            this.$router.push({name: 'NewClientes'});
         },
-        newCustomer(){
-            this.$router.push({name: 'NewCustomer'});
         },
+
         mounted(){
             axios 
             .get('http://127.0.0.1:8000/api/clientes')

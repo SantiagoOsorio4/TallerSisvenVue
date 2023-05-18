@@ -13,17 +13,17 @@
             </thead>
             <tbody>
                 <tr v-for="(Products,index) in Products" :key="index">
-                <th scope="=row">{{index+1}}</th>
+                <td>{{ Products.id }}</td>                    
                 <td>{{ Products.name }}</td>    
                 <td>{{ Products.price }}</td>     
                 <td>{{ Products.stock }}</td>     
                 <td>{{ Products.category_id  }}</td>      
                 <td>
-                    <button @click="deleteProducts(Products.name)"
+                    <button @click="deleteProducts(Products.id)"
                     class="btn btn-danger mx-2">
                     <font-awesome-icon icon="trash" />
                     </button>
-                    <button @click="editProducts(Products.name)"
+                    <button @click="editProducts(Products.id)"
                     class="btn btn-warning mx-2">
                     <font-awesome-icon icon="pencil" />
                     </button>
@@ -47,14 +47,14 @@ import Swal from 'sweetalert2'
             }
         },
         methods: {
-            deleteProducts(codigo){
+            deleteProducts(id){
                 Swal.fire({
-                    title: `Do you want to delete the Products whit id ${codigo}?`,
+                    title: `Do you want to delete the Products whit id ${id}?`,
                     showCancelButton: true,
                     confirmButtonText: 'Delete', 
                 }).then((result)=>{
                     if (result.isConfirmed){
-                        axios.delete(`http://127.0.0.1:8000/api/Products/${codigo}`)
+                        axios.delete(`http://127.0.0.1:8000/api/Products/${id}`)
                         .then(response => {
                             if (response.data.success){
                                 Swal.fire('Deleted!! ', '', 'success')
@@ -63,9 +63,8 @@ import Swal from 'sweetalert2'
                         })
                     }
                 })
-            }
-        },
-
+            },
+            
         editProducts(id){
             this.$router.push({name: 'EditarProducts', params: {id: `${id}`}} )
         },
@@ -73,6 +72,8 @@ import Swal from 'sweetalert2'
             this.$router.push({name: 'NewProducts'});
            
         },
+        },
+
 
         mounted(){
             axios 

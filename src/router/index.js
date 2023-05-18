@@ -2,8 +2,8 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 
 
 //clientes
-import EditarCustomer from '../components/clientes/EditarCustomer.vue';
-import NewCustomer from '../components/clientes/NewCustomer.vue';
+import EditarClientes from '../components/Clientes/EditarClientes.vue';
+import NewClientes from '../components/Clientes/NewClientes.vue';
 import Clientes from '../views/Clientes';
 
 //PayMode
@@ -16,8 +16,12 @@ import EditarProducts from '../components/Products/EditarProducts.vue';
 import NewProducts from '../components/Products/NewProducts.vue';
 import Products from '../views/Products';
 
-//
+//Categories
+import EditarCategories from '../components/Categories/EditarCategories.vue';
+import NewCategories from '../components/Categories/NewCategories.vue';
 import categories from '../views/Categories';
+
+//
 import HomeView from '../views/HomeView.vue';
 
 const routes = [
@@ -61,6 +65,16 @@ const routes = [
     name: 'categories',
     component: categories
   },
+  {
+    path: '/editar-Categories/:id',
+    name: 'EditarCategories',
+    component: EditarCategories
+  },
+  {
+    path: '/add-Categories/',
+    name: 'NewCategories',
+    component: NewCategories
+  },
 
   //Clientes
   {
@@ -69,14 +83,14 @@ const routes = [
     component: Clientes
   },
   {
-    path: '/editar-customer/:id',
-    name: 'EditarCustomer',
-    component: EditarCustomer
+    path: '/editar-Clientes/:id',
+    name: 'EditarClientes',
+    component: EditarClientes
   },
   {
-    path: '/add-customer/',
-    name: 'NewCustomer',
-    component: NewCustomer
+    path: '/add-Clientes/',
+    name: 'NewClientes',
+    component: NewClientes
   },
 
   //home

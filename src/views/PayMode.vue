@@ -16,15 +16,15 @@
             </thead>
             <tbody>
                 <tr v-for="(PayMode,index) in PayMode" :key="index">
-                <th scope="=row">{{index+1}}</th>   
+                <td>{{ PayMode.id }}</td>    
                 <td>{{ PayMode.name }}</td>     
                 <td>{{ PayMode.observation}}</td> 
                 <td>
-                    <button @click="deletePayMode(PayMode.name)"
+                    <button @click="deletePayMode(PayMode.id)"
                     class="btn btn-danger mx-2">
                     <font-awesome-icon icon="trash" />
                     </button>
-                    <button @click="editPayMode(PayMode.name)"
+                    <button @click="editPayMode(PayMode.id)"
                     class="btn btn-warning mx-2">
                     <font-awesome-icon icon="pencil" />
                     </button>
@@ -49,15 +49,15 @@
         },
         methods:
         {
-            deletePayMode(codigo){
+            deletePayMode(id){
                 Swal.fire
                 ({
-                    title: `Do you want to delete the PayMode with id ${codigo}?`,
+                    title: `Do you want to delete the PayMode with id ${id}?`,
                     showCancelButton: true,
                     confirmButtonText: 'Delete',   
                 }).then((result) =>{
                     if (result.isConfirmed){
-                        axios.delete(`http://127.0.0.1:8000/api/PayMode/${codigo}`)
+                        axios.delete(`http://127.0.0.1:8000/api/PayMode/${id}`)
                         .then(response =>{
                             if (response.data.success){
                                 Swal.fire('Deleted!!', '' ,'success')
@@ -66,15 +66,17 @@
                         })
                     }
                 })
-            }
-        },
-        editPayMode(id){
+            },
+            editPayMode(id){
             this.$router.push({name: 'EditarPayMode', params: {id: `${id}`}} )
         },
-        newCustomer(){
-            this.$router.push({name: 'NewCustomer'});
+        newPayMode(){
+            this.$router.push({name: 'NewPayMode'});
            
         },
+
+        },
+
         mounted(){
             axios 
             .get('http://127.0.0.1:8000/api/PayMode')
